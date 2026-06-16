@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Marketing XXI">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Marketing XXI</title>
+<style>
+:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--fg:#e2e8f0;--fg2:#94a3b8;--acc:#3b82f6;--g:#4285F4;--m:#1877F2;
+--exc:#22c55e;--good:#86efac;--ok:#fbbf24;--bad:#f97316;--crit:#ef4444;--na:#475569;
+--r:12px;--r2:8px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;}
+.wrap{max-width:640px;margin:0 auto;padding:env(safe-area-inset-top,12px) 12px env(safe-area-inset-bottom,16px);}
+
+/* Header */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px;}
+.hdr-title{font-size:18px;font-weight:800;letter-spacing:-.3px;}
+.hdr-sub{font-size:11px;color:var(--fg2);margin-top:2px;}
+.hdr-badge{background:var(--bg2);border:1px solid var(--bg3);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--fg2);white-space:nowrap;}
+
+/* KPI grid */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.kpi-wide{grid-column:span 2;}
+.kpi{background:var(--bg2);border-radius:var(--r);padding:12px 14px;border-top:3px solid var(--bg3);}
+.kpi.goog{border-top-color:var(--g);}
+.kpi.meta{border-top-color:var(--m);}
+.kpi.tot{border-top-color:var(--acc);}
+.kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg2);font-weight:600;}
+.kpi-val{font-size:22px;font-weight:800;margin-top:2px;letter-spacing:-.5px;}
+.kpi-sub{font-size:11px;color:var(--fg2);margin-top:1px;}
+
+/* SecciÃ³n */
+.sec{margin-bottom:20px;}
+.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bg3);}
+.sec-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;}
+.sec-icon.g{background:var(--g);} .sec-icon.m{background:var(--m);} .sec-icon.a{background:#dc2626;}
+.sec-title{font-size:15px;font-weight:700;}
+.sec-total{font-size:11px;color:var(--fg2);margin-left:auto;text-align:right;}
+
+/* Cards de campaÃ±a */
+.camp-list{display:flex;flex-direction:column;gap:6px;}
+.camp-card{background:var(--bg2);border-radius:var(--r2);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.camp-card:active{opacity:.85;}
+.camp-left{flex:1;min-width:0;}
+.camp-marca{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--fg2);}
+.camp-nombre{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.camp-stats{font-size:10px;color:var(--fg2);margin-top:2px;}
+.camp-right{text-align:right;flex-shrink:0;}
+.camp-cpl{font-size:15px;font-weight:800;line-height:1.1;}
+.camp-cpl-lbl{font-size:9px;color:var(--fg2);}
+.camp-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:3px;display:inline-block;}
+
+/* Detalle expandible */
+.camp-detail{display:none;background:var(--bg3);border-radius:0 0 var(--r2) var(--r2);padding:10px 12px;margin-top:-4px;font-size:11px;color:var(--fg2);}
+.camp-detail.open{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;}
+.camp-detail span{display:flex;justify-content:space-between;}
+.camp-detail span b{color:var(--fg);}
+
+/* Colores CPL */
+.t-exc .camp-cpl{color:var(--exc);}  .b-exc{background:#14532d;color:var(--exc);}
+.t-good .camp-cpl{color:var(--good);} .b-good{background:#166534;color:#bbf7d0;}
+.t-ok .camp-cpl{color:var(--ok);}   .b-ok{background:#78350f;color:#fde68a;}
+.t-bad .camp-cpl{color:var(--bad);} .b-bad{background:#7c2d12;color:#fed7aa;}
+.t-crit .camp-cpl{color:var(--crit);} .b-crit{background:#7f1d1d;color:#fecaca;}
+.t-na .camp-cpl{color:var(--na);}   .b-na{background:var(--bg3);color:var(--fg2);}
+
+/* Alertas */
+.alert-card{background:#1c0a0a;border:1px solid #7f1d1d;border-radius:var(--r2);padding:10px 12px;margin-bottom:6px;}
+.alert-plat{font-size:10px;font-weight:700;color:#f87171;text-transform:uppercase;}
+.alert-name{font-size:12px;font-weight:600;margin-top:2px;}
+.alert-amt{font-size:13px;font-weight:800;color:#fca5a5;float:right;}
+
+/* Ver mÃ¡s */
+.ver-mas{text-align:center;padding:8px;color:var(--fg2);font-size:11px;cursor:pointer;margin-top:-4px;}
+
+/* Footer */
+.footer{text-align:center;font-size:10px;color:var(--fg2);padding:16px 0 4px;border-top:1px solid var(--bg3);margin-top:8px;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div>
+      <div class="hdr-title">Marketing XXI</div>
+      <div class="hdr-sub">Junio 2026 &nbsp;Â·&nbsp; 16 dias de 06/2026</div>
+    </div>
+    <div class="hdr-badge">â†» 16-06-2026 12:18</div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- Google Ads -->
+  <div class="sec" id="secGoogle"></div>
+
+  <!-- Meta Ads -->
+  <div class="sec" id="secMeta"></div>
+
+  <!-- Alertas -->
+  <div class="sec" id="secAlertas"></div>
+
+  <div class="footer">Marketing Digital &mdash; Valenzuela &amp; Delarze<br>16-06-2026 12:18</div>
+</div>
+
+<script>
+const D = {
+  spG: 0, convG: 0, cplG: 0,
+  spM: 25760015, leadsM: 2256, cplM: 11418,
+  spT: 25760015,
+  totConv: 2256,
+  cplT: 11418,
+  google: [[]],
+  meta:   [[{"m":"PEUGEOT","c":"V\u0026D/PEUGEOT 208 - Leads - VD - 2026","imp":242066,"cl":2617,"gasto":719360,"leads":158,"cpl":4553,"cplStr":"$4,553","t":"exc"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D/RAMPAGE RAM700/ LEADS - 2026","imp":485145,"cl":7957,"gasto":1740711,"leads":336,"cpl":5181,"cplStr":"$5,181","t":"exc"},{"m":"PEUGEOT","c":"Peugeot | Mantención","imp":62083,"cl":669,"gasto":207246,"leads":38,"cpl":5454,"cplStr":"$5,454","t":"exc"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D/JEEP AVENGER- COMPASS / Leads -  2026","imp":420756,"cl":5724,"gasto":1838516,"leads":286,"cpl":6428,"cplStr":"$6,428","t":"good"},{"m":"KIA","c":"Kia Morning | FORMULARIO | Mayo","imp":210981,"cl":2788,"gasto":1422923,"leads":218,"cpl":6527,"cplStr":"$6,527","t":"good"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D| PULSE - FASTBACK/ Leads -2026","imp":251810,"cl":3855,"gasto":1176489,"leads":179,"cpl":6573,"cplStr":"$6,573","t":"good"},{"m":"HONDA","c":"Honda | WRV -CRV | Leads | 2026","imp":183305,"cl":2842,"gasto":1056276,"leads":159,"cpl":6643,"cplStr":"$6,643","t":"good"},{"m":"HONDA","c":"Honda | PILOT | HRV","imp":161231,"cl":1960,"gasto":605828,"leads":89,"cpl":6807,"cplStr":"$6,807","t":"good"},{"m":"PEUGEOT","c":"Peugeot | 5008-3008 - PARTNER| Leads | VD","imp":155520,"cl":1982,"gasto":844845,"leads":102,"cpl":8283,"cplStr":"$8,283","t":"good"},{"m":"FORD","c":"Transit Custom | Campaña - Mayo 2026","imp":86516,"cl":1112,"gasto":506694,"leads":52,"cpl":9744,"cplStr":"$9,744","t":"good"},{"m":"OMODA - JAECOO","c":"Omoda | C5 -E5 | Leads | 2026","imp":215211,"cl":2294,"gasto":1224707,"leads":119,"cpl":10292,"cplStr":"$10,292","t":"ok"},{"m":"FORD","c":"Ford | Modelos | Leads | MAYO º QUINTA Râ€¦","imp":253412,"cl":2309,"gasto":1262127,"leads":73,"cpl":17289,"cplStr":"$17,289","t":"bad"},{"m":"FORD","c":"Ford | Modelos | Leads |  2026","imp":594608,"cl":6181,"gasto":3737294,"leads":196,"cpl":19068,"cplStr":"$19,068","t":"bad"},{"m":"FORD","c":"V\u0026D/RM Ford Territory/ Leads - SOLO TERRâ€¦","imp":84337,"cl":908,"gasto":645144,"leads":33,"cpl":19550,"cplStr":"$19,550","t":"bad"},{"m":"FORD","c":"Ford | Bronco - Explorer | Leads | VR - â€¦","imp":302823,"cl":3023,"gasto":1704810,"leads":68,"cpl":25071,"cplStr":"$25,071","t":"crit"},{"m":"FORD","c":"Ford | Bronco - Explorer | Maverick  | Lâ€¦","imp":413692,"cl":3484,"gasto":2585868,"leads":99,"cpl":26120,"cplStr":"$26,120","t":"crit"},{"m":"Valenzuela \u0026 Delarze","c":"Mantencion Bellavista","imp":40325,"cl":640,"gasto":292452,"leads":11,"cpl":26587,"cplStr":"$26,587","t":"crit"},{"m":"OMODA - JAECOO","c":"V\u0026D | JAECOO 7 SHS | Mayo 2026","imp":64380,"cl":580,"gasto":701373,"leads":24,"cpl":29224,"cplStr":"$29,224","t":"crit"},{"m":"USADOS","c":"USADOS|OFERTAS EXCLUSIVAS 2026","imp":199413,"cl":1779,"gasto":727861,"leads":11,"cpl":66169,"cplStr":"$66,169","t":"crit"},{"m":"OMODA - JAECOO","c":"Campaña Whatsapp| - Omoda C5 - 2026","imp":67949,"cl":1311,"gasto":246819,"leads":2,"cpl":123410,"cplStr":"$123,410","t":"crit"},{"m":"PEUGEOT","c":"Whatsapp | Peugeot","imp":114265,"cl":1025,"gasto":234677,"leads":1,"cpl":234677,"cplStr":"$234,677","t":"crit"},{"m":"FORD","c":"Whatsapp_FORD | Mayo","imp":96201,"cl":1615,"gasto":325762,"leads":1,"cpl":325762,"cplStr":"$325,762","t":"crit"},{"m":"KIA","c":"V\u0026D/KiaMorning - Sonet 2026","imp":96503,"cl":15870,"gasto":933189,"leads":1,"cpl":933189,"cplStr":"$933,189","t":"crit"},{"m":"FORD","c":"Trafico_Ford","imp":1524450,"cl":16819,"gasto":270896,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"HONDA","c":"Campaña_Whatsapp","imp":39995,"cl":664,"gasto":168841,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"KIA","c":"Kia_Whatsapp  2026","imp":178594,"cl":3389,"gasto":328815,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"USADOS","c":"USADOS | Leads | 2026 - FORMULARIO","imp":2729,"cl":54,"gasto":23022,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"PEUGEOT","c":"Peugeot | Mantención - interes","imp":233,"cl":2,"gasto":806,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"USADOS","c":"USADOS | Leads | 2026 - WHATSAPP","imp":59544,"cl":1001,"gasto":226664,"leads":0,"cpl":0,"cplStr":"-","t":"na"}]],
+  alertas:[{"plat":"Meta","c":"Kia_Whatsapp  2026","clp":328815},{"plat":"Meta","c":"USADOS | Leads | 2026 - WHATSAPP","clp":226664},{"plat":"Meta","c":"Trafico_Ford","clp":270896},{"plat":"Meta","c":"Campaña_Whatsapp","clp":168841}]
+};
+
+const fmt = n => '\$' + Math.round(n).toLocaleString('es-CL');
+const fmtN = n => Math.round(n).toLocaleString('es-CL');
+const badgeTxt = {exc:'âœ… Excepcional',good:'âœ… Bueno',ok:'âš ï¸ Moderado',bad:'ðŸ”´ Caro',crit:'ðŸš¨ CrÃ­tico',na:'â€” Sin leads'};
+const badgeCls = {exc:'b-exc',good:'b-good',ok:'b-ok',bad:'b-bad',crit:'b-crit',na:'b-na'};
+const typeCls  = {exc:'t-exc',good:'t-good',ok:'t-ok',bad:'t-bad',crit:'t-crit',na:'t-na'};
+
+// KPIs
+const kg = document.getElementById('kpiGrid');
+kg.innerHTML =
+  kpi('goog','Google Ads',fmt(D.spG),fmtN(D.convG)+' conv &nbsp;Â·&nbsp; CPL '+fmt(D.cplG))+
+  kpi('meta','Meta Ads',fmt(D.spM),fmtN(D.leadsM)+' leads &nbsp;Â·&nbsp; CPL '+fmt(D.cplM))+
+  kpi('tot kpi-wide','Total Combinado',fmt(D.spT),'<b>'+fmtN(D.totConv)+'</b> resultados &nbsp;Â·&nbsp; CPL global '+fmt(D.cplT));
+
+function kpi(cls,lbl,val,sub){
+  return '<div class="kpi '+cls+'"><div class="kpi-lbl">'+lbl+'</div><div class="kpi-val">'+val+'</div><div class="kpi-sub">'+sub+'</div></div>';
+}
+
+// SecciÃ³n Google Ads
+const sg = document.getElementById('secGoogle');
+sg.innerHTML = '<div class="sec-hdr"><div class="sec-icon g">G</div><div class="sec-title">Google Ads</div><div class="sec-total">'+fmtN(D.convG)+' conv &nbsp;Â·&nbsp; CPL '+fmt(D.cplG)+'</div></div><div class="camp-list" id="listG"></div><div class="ver-mas" id="moreG" onclick="showMore(\'listG\',\'moreG\')">Ver todas las campaÃ±as â–¾</div>';
+renderList('listG', D.google, 'google', 5);
+
+// SecciÃ³n Meta Ads
+const sm = document.getElementById('secMeta');
+sm.innerHTML = '<div class="sec-hdr"><div class="sec-icon m">f</div><div class="sec-title">Meta Ads</div><div class="sec-total">'+fmtN(D.leadsM)+' leads &nbsp;Â·&nbsp; CPL '+fmt(D.cplM)+'</div></div><div class="camp-list" id="listM"></div><div class="ver-mas" id="moreM" onclick="showMore(\'listM\',\'moreM\')">Ver todas las campaÃ±as â–¾</div>';
+renderList('listM', D.meta, 'meta', 6);
+
+// Alertas
+const sa = document.getElementById('secAlertas');
+if(D.alertas.length > 0){
+  let html = '<div class="sec-hdr"><div class="sec-icon a">!</div><div class="sec-title">Sin leads medibles</div></div>';
+  D.alertas.forEach(a=>{
+    html += '<div class="alert-card"><span class="alert-plat">'+a.plat+'</span><span class="alert-amt">'+fmt(a.clp)+' CLP</span><div class="alert-name">'+a.c+'</div></div>';
+  });
+  sa.innerHTML = html;
+}
+
+function renderList(id, data, tipo, limit) {
+  const el = document.getElementById(id);
+  const subset = data.slice(0, limit);
+  el.innerHTML = subset.map((c,i) => campCard(c, tipo, i)).join('');
+  if(data.length <= limit) document.getElementById(id.replace('list','more')).style.display='none';
+  el.dataset.all = JSON.stringify(data);
+  el.dataset.tipo = tipo;
+}
+
+function campCard(c, tipo, i) {
+  const isG = tipo === 'google';
+  const metricLabel = isG ? 'Conv' : 'Leads';
+  const metricVal   = isG ? fmtN(c.conv||0) : fmtN(c.leads||0);
+  const metricCost  = isG ? fmt(c.costo||0) : fmt(c.gasto||0);
+  const metricImp   = fmtN(c.imp||0);
+  const tcls = typeCls[c.t] || 't-na';
+  const bcls = badgeCls[c.t] || 'b-na';
+  const btxt = badgeTxt[c.t] || 'â€”';
+  return '<div class="camp-card '+tcls+'" onclick="toggle(\'det-'+tipo+'-'+i+'\')">' +
+    '<div class="camp-left">' +
+      '<div class="camp-marca">'+escH(c.m)+'</div>' +
+      '<div class="camp-nombre">'+escH(c.c)+'</div>' +
+      '<div class="camp-stats">'+metricLabel+': <b>'+metricVal+'</b> &nbsp;Â·&nbsp; Gasto: '+metricCost+'</div>' +
+    '</div>' +
+    '<div class="camp-right">' +
+      '<div class="camp-cpl">'+c.cplStr+'</div>' +
+      '<div class="camp-cpl-lbl">CLP/'+metricLabel.toLowerCase()+'</div>' +
+      '<span class="camp-badge '+bcls+'">'+btxt+'</span>' +
+    '</div>' +
+  '</div>' +
+  '<div class="camp-detail" id="det-'+tipo+'-'+i+'">' +
+    '<span>Impresiones<b>'+metricImp+'</b></span>' +
+    '<span>Clics<b>'+fmtN(c.cl||0)+'</b></span>' +
+    '<span>'+metricLabel+'<b>'+metricVal+'</b></span>' +
+    '<span>Gasto<b>'+metricCost+'</b></span>' +
+  '</div>';
+}
+
+function toggle(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('open');
+}
+
+function showMore(listId, moreId) {
+  const el = document.getElementById(listId);
+  const data = JSON.parse(el.dataset.all);
+  const tipo = el.dataset.tipo;
+  el.innerHTML = data.map((c,i) => campCard(c, tipo, i)).join('');
+  document.getElementById(moreId).style.display = 'none';
+}
+
+function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+</script>
+</body>
+</html>
