@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,212 +10,409 @@
 <meta name="apple-mobile-web-app-title" content="Marketing XXI">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.svg">
-<title>Marketing XXI</title>
+<title>Reporte Marketing Digital — Junio 2026</title>
 <style>
-:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--fg:#e2e8f0;--fg2:#94a3b8;--acc:#3b82f6;--g:#4285F4;--m:#1877F2;
---exc:#22c55e;--good:#86efac;--ok:#fbbf24;--bad:#f97316;--crit:#ef4444;--na:#475569;
---r:12px;--r2:8px;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;}
-.wrap{max-width:640px;margin:0 auto;padding:env(safe-area-inset-top,12px) 12px env(safe-area-inset-bottom,16px);}
-
-/* Header */
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px;}
-.hdr-title{font-size:18px;font-weight:800;letter-spacing:-.3px;}
-.hdr-sub{font-size:11px;color:var(--fg2);margin-top:2px;}
-.hdr-badge{background:var(--bg2);border:1px solid var(--bg3);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--fg2);white-space:nowrap;}
-
-/* KPI grid */
-.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
-.kpi-wide{grid-column:span 2;}
-.kpi{background:var(--bg2);border-radius:var(--r);padding:12px 14px;border-top:3px solid var(--bg3);}
-.kpi.goog{border-top-color:var(--g);}
-.kpi.meta{border-top-color:var(--m);}
-.kpi.tot{border-top-color:var(--acc);}
-.kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg2);font-weight:600;}
-.kpi-val{font-size:22px;font-weight:800;margin-top:2px;letter-spacing:-.5px;}
-.kpi-sub{font-size:11px;color:var(--fg2);margin-top:1px;}
-
-/* SecciÃ³n */
-.sec{margin-bottom:20px;}
-.sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bg3);}
-.sec-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;}
-.sec-icon.g{background:var(--g);} .sec-icon.m{background:var(--m);} .sec-icon.a{background:#dc2626;}
-.sec-title{font-size:15px;font-weight:700;}
-.sec-total{font-size:11px;color:var(--fg2);margin-left:auto;text-align:right;}
-
-/* Cards de campaÃ±a */
-.camp-list{display:flex;flex-direction:column;gap:6px;}
-.camp-card{background:var(--bg2);border-radius:var(--r2);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;}
-.camp-card:active{opacity:.85;}
-.camp-left{flex:1;min-width:0;}
-.camp-marca{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--fg2);}
-.camp-nombre{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
-.camp-stats{font-size:10px;color:var(--fg2);margin-top:2px;}
-.camp-right{text-align:right;flex-shrink:0;}
-.camp-cpl{font-size:15px;font-weight:800;line-height:1.1;}
-.camp-cpl-lbl{font-size:9px;color:var(--fg2);}
-.camp-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:3px;display:inline-block;}
-
-/* Detalle expandible */
-.camp-detail{display:none;background:var(--bg3);border-radius:0 0 var(--r2) var(--r2);padding:10px 12px;margin-top:-4px;font-size:11px;color:var(--fg2);}
-.camp-detail.open{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;}
-.camp-detail span{display:flex;justify-content:space-between;}
-.camp-detail span b{color:var(--fg);}
-
-/* Colores CPL */
-.t-exc .camp-cpl{color:var(--exc);}  .b-exc{background:#14532d;color:var(--exc);}
-.t-good .camp-cpl{color:var(--good);} .b-good{background:#166534;color:#bbf7d0;}
-.t-ok .camp-cpl{color:var(--ok);}   .b-ok{background:#78350f;color:#fde68a;}
-.t-bad .camp-cpl{color:var(--bad);} .b-bad{background:#7c2d12;color:#fed7aa;}
-.t-crit .camp-cpl{color:var(--crit);} .b-crit{background:#7f1d1d;color:#fecaca;}
-.t-na .camp-cpl{color:var(--na);}   .b-na{background:var(--bg3);color:var(--fg2);}
-
-/* Alertas */
-.alert-card{background:#1c0a0a;border:1px solid #7f1d1d;border-radius:var(--r2);padding:10px 12px;margin-bottom:6px;}
-.alert-plat{font-size:10px;font-weight:700;color:#f87171;text-transform:uppercase;}
-.alert-name{font-size:12px;font-weight:600;margin-top:2px;}
-.alert-amt{font-size:13px;font-weight:800;color:#fca5a5;float:right;}
-
-/* Ver mÃ¡s */
-.ver-mas{text-align:center;padding:8px;color:var(--fg2);font-size:11px;cursor:pointer;margin-top:-4px;}
-
-/* Footer */
-.footer{text-align:center;font-size:10px;color:var(--fg2);padding:16px 0 4px;border-top:1px solid var(--bg3);margin-top:8px;}
-
-/* Scrollbar */
-::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--bg2);}
-::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:4px;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,-apple-system,Arial,sans-serif;font-size:11pt;color:#1e293b;background:#f8fafc;line-height:1.5;}
+.page{max-width:900px;margin:0 auto;background:#fff;padding:32px 40px;}
+.report-header{border-bottom:3px solid #0f172a;padding-bottom:20px;margin-bottom:28px;}
+.logo-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.company{font-size:13pt;font-weight:700;color:#0f172a;letter-spacing:.5px;}
+.meta-info{font-size:9pt;color:#64748b;text-align:right;}
+.report-title{font-size:22pt;font-weight:800;color:#0f172a;line-height:1.1;}
+.report-subtitle{font-size:12pt;color:#475569;margin-top:4px;}
+.report-period{display:inline-block;margin-top:10px;background:#0f172a;color:#fff;padding:4px 14px;border-radius:4px;font-size:10pt;font-weight:600;letter-spacing:.3px;}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px;}
+.kpi-card{background:#f1f5f9;border-radius:8px;padding:14px 16px;border-left:4px solid #0f172a;}
+.kpi-card.google{border-left-color:#4285F4;}
+.kpi-card.meta{border-left-color:#1877F2;}
+.kpi-card.total{border-left-color:#0f172a;background:#0f172a;color:#fff;}
+.kpi-label{font-size:8.5pt;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;}
+.kpi-card.total .kpi-label{color:#94a3b8;}
+.kpi-value{font-size:16pt;font-weight:800;margin-top:2px;}
+.kpi-sub{font-size:8.5pt;color:#64748b;margin-top:2px;}
+.kpi-card.total .kpi-sub{color:#94a3b8;}
+.section{margin-bottom:32px;}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;flex-wrap:wrap;}
+.section-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14pt;font-weight:800;color:#fff;flex-shrink:0;}
+.section-icon.google{background:#4285F4;}
+.section-icon.meta{background:#1877F2;}
+.section-icon.alert{background:#dc2626;}
+.section-icon.reco{background:#059669;}
+.section-title{font-size:14pt;font-weight:700;color:#0f172a;}
+.section-totals{font-size:9pt;color:#64748b;margin-left:auto;text-align:right;}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;font-size:9pt;min-width:540px;}
+thead th{background:#0f172a;color:#fff;padding:7px 9px;text-align:left;font-weight:600;font-size:8.5pt;letter-spacing:.3px;white-space:nowrap;}
+thead th.num{text-align:right;}
+tbody tr:nth-child(even){background:#f8fafc;}
+tbody tr:hover{background:#f1f5f9;}
+tbody td{padding:6px 9px;border-bottom:1px solid #e2e8f0;vertical-align:middle;}
+tbody td.num{text-align:right;font-variant-numeric:tabular-nums;}
+tbody td.camp{font-weight:500;}
+tbody td.marca{font-weight:600;color:#475569;font-size:8pt;white-space:nowrap;}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:7.5pt;font-weight:600;white-space:nowrap;}
+.badge-green{background:#dcfce7;color:#15803d;}
+.badge-yellow{background:#fef9c3;color:#92400e;}
+.badge-orange{background:#ffedd5;color:#9a3412;}
+.badge-red{background:#fee2e2;color:#991b1b;}
+.badge-gray{background:#f1f5f9;color:#475569;}
+.cpl-exc{color:#15803d;font-weight:700;}
+.cpl-good{color:#065f46;font-weight:700;}
+.cpl-ok{color:#92400e;font-weight:700;}
+.cpl-bad{color:#c2410c;font-weight:700;}
+.cpl-crit{color:#991b1b;font-weight:800;}
+.cpl-na{color:#94a3b8;font-style:italic;}
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.brand-card{border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;background:#fff;}
+.brand-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:4px;}
+.brand-name{font-size:10pt;font-weight:700;color:#0f172a;}
+.brand-pill{font-size:8pt;font-weight:600;padding:2px 8px;border-radius:10px;}
+.brand-card ul{padding-left:14px;margin-top:4px;}
+.brand-card ul li{font-size:9pt;color:#475569;margin-bottom:3px;line-height:1.5;}
+.brand-card ul li strong{color:#0f172a;}
+.hl-good{color:#15803d;font-weight:700;}
+.hl-bad{color:#dc2626;font-weight:700;}
+.alert-table thead th{background:#991b1b;}
+.alert-row td{background:#fff5f5;}
+.alert-row:nth-child(even) td{background:#fff1f1;}
+.reco-list{counter-reset:reco;padding:0;list-style:none;}
+.reco-list li{counter-increment:reco;display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
+.reco-list li::before{content:counter(reco);background:#0f172a;color:#fff;font-size:9pt;font-weight:700;min-width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.reco-text{font-size:10pt;color:#1e293b;line-height:1.55;}
+.reco-text strong{color:#0f172a;}
+.reco-text em{color:#64748b;font-style:normal;font-size:9pt;}
+.report-footer{margin-top:36px;padding-top:14px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.report-footer span{font-size:8.5pt;color:#94a3b8;}
+.divider{height:1px;background:#e2e8f0;margin:24px 0;}
+.nota{background:#f8fafc;border-left:3px solid #64748b;padding:8px 12px;border-radius:0 6px 6px 0;font-size:8.5pt;color:#64748b;margin-bottom:16px;}
+.nota-warn{background:#fffbeb;border-left:3px solid #d97706;padding:8px 12px;border-radius:0 6px 6px 0;font-size:8.5pt;color:#92400e;margin-bottom:16px;}
+@media(max-width:640px){
+  .page{padding:16px 14px;}
+  .summary-grid{grid-template-columns:1fr 1fr;}
+  .brand-grid{grid-template-columns:1fr;}
+  .report-title{font-size:16pt;}
+  .kpi-value{font-size:13pt;}
+  .section-totals{font-size:8pt;margin-left:0;width:100%;}
+}
+@media print{
+  body{background:#fff;font-size:9.5pt;}
+  .page{padding:20px 24px;max-width:100%;}
+  .summary-grid{grid-template-columns:repeat(4,1fr);}
+  .brand-grid{grid-template-columns:1fr 1fr;}
+  table{font-size:8pt;}
+  thead th{font-size:7.5pt;padding:5px 7px;}
+  tbody td{padding:4px 7px;}
+  .section{page-break-inside:avoid;}
+  .brand-card{page-break-inside:avoid;}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-  <div class="hdr">
-    <div>
-      <div class="hdr-title">Marketing XXI</div>
-      <div class="hdr-sub">Junio 2026 &nbsp;Â·&nbsp; 16 dias de 06/2026</div>
-    </div>
-    <div class="hdr-badge">â†» 16-06-2026 12:26</div>
+<!-- CABECERA -->
+<div class="report-header">
+  <div class="logo-row">
+    <div class="company">VALENZUELA &amp; DELARZE — Marketing Digital</div>
+    <div class="meta-info">Actualizado 16 de junio de 2026<br>Fuentes: Google Ads · Meta Ads</div>
   </div>
-
-  <!-- KPIs -->
-  <div class="kpi-grid" id="kpiGrid"></div>
-
-  <!-- Google Ads -->
-  <div class="sec" id="secGoogle"></div>
-
-  <!-- Meta Ads -->
-  <div class="sec" id="secMeta"></div>
-
-  <!-- Alertas -->
-  <div class="sec" id="secAlertas"></div>
-
-  <div class="footer">Marketing Digital &mdash; Valenzuela &amp; Delarze<br>16-06-2026 12:26</div>
+  <div class="report-title">Reporte de Campañas Activas</div>
+  <div class="report-subtitle">Análisis crítico de rendimiento por plataforma y marca</div>
+  <div class="report-period">1 — 16 de Junio de 2026 &nbsp;·&nbsp; 16 días</div>
 </div>
 
-<script>
-const D = {
-  spG: 0, convG: 0, cplG: 0,
-  spM: 25770079, leadsM: 2258, cplM: 11413,
-  spT: 25770079,
-  totConv: 2258,
-  cplT: 11413,
-  google: [[]],
-  meta:   [[{"m":"PEUGEOT","c":"V\u0026D/PEUGEOT 208 - Leads - VD - 2026","imp":242225,"cl":2619,"gasto":719744,"leads":158,"cpl":4555,"cplStr":"$4,555","t":"exc"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D/RAMPAGE RAM700/ LEADS - 2026","imp":485272,"cl":7963,"gasto":1741134,"leads":336,"cpl":5182,"cplStr":"$5,182","t":"exc"},{"m":"PEUGEOT","c":"Peugeot | Mantención","imp":62099,"cl":670,"gasto":207351,"leads":38,"cpl":5457,"cplStr":"$5,457","t":"exc"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D/JEEP AVENGER- COMPASS / Leads -  2026","imp":420910,"cl":5728,"gasto":1839229,"leads":288,"cpl":6386,"cplStr":"$6,386","t":"good"},{"m":"KIA","c":"Kia Morning | FORMULARIO | Mayo","imp":211055,"cl":2788,"gasto":1423392,"leads":218,"cpl":6529,"cplStr":"$6,529","t":"good"},{"m":"FIAT - JEEP - RAM","c":"V\u0026D| PULSE - FASTBACK/ Leads -2026","imp":251864,"cl":3855,"gasto":1176920,"leads":179,"cpl":6575,"cplStr":"$6,575","t":"good"},{"m":"HONDA","c":"Honda | WRV -CRV | Leads | 2026","imp":183434,"cl":2842,"gasto":1056839,"leads":159,"cpl":6647,"cplStr":"$6,647","t":"good"},{"m":"HONDA","c":"Honda | PILOT | HRV","imp":161401,"cl":1961,"gasto":606456,"leads":89,"cpl":6814,"cplStr":"$6,814","t":"good"},{"m":"PEUGEOT","c":"Peugeot | 5008-3008 - PARTNER| Leads | VD","imp":155568,"cl":1982,"gasto":845031,"leads":102,"cpl":8285,"cplStr":"$8,285","t":"good"},{"m":"FORD","c":"Transit Custom | Campaña - Mayo 2026","imp":86516,"cl":1112,"gasto":506694,"leads":52,"cpl":9744,"cplStr":"$9,744","t":"good"},{"m":"OMODA - JAECOO","c":"Omoda | C5 -E5 | Leads | 2026","imp":215275,"cl":2295,"gasto":1225533,"leads":119,"cpl":10299,"cplStr":"$10,299","t":"ok"},{"m":"FORD","c":"Ford | Modelos | Leads | MAYO º QUINTA Râ€¦","imp":253615,"cl":2309,"gasto":1262877,"leads":73,"cpl":17300,"cplStr":"$17,300","t":"bad"},{"m":"FORD","c":"Ford | Modelos | Leads |  2026","imp":594878,"cl":6183,"gasto":3739058,"leads":196,"cpl":19077,"cplStr":"$19,077","t":"bad"},{"m":"FORD","c":"V\u0026D/RM Ford Territory/ Leads - SOLO TERRâ€¦","imp":84366,"cl":908,"gasto":645363,"leads":33,"cpl":19556,"cplStr":"$19,556","t":"bad"},{"m":"FORD","c":"Ford | Bronco - Explorer | Leads | VR - â€¦","imp":302913,"cl":3024,"gasto":1705274,"leads":68,"cpl":25078,"cplStr":"$25,078","t":"crit"},{"m":"FORD","c":"Ford | Bronco - Explorer | Maverick  | Lâ€¦","imp":413846,"cl":3485,"gasto":2586691,"leads":99,"cpl":26128,"cplStr":"$26,128","t":"crit"},{"m":"Valenzuela \u0026 Delarze","c":"Mantencion Bellavista","imp":40352,"cl":640,"gasto":292549,"leads":11,"cpl":26595,"cplStr":"$26,595","t":"crit"},{"m":"OMODA - JAECOO","c":"V\u0026D | JAECOO 7 SHS | Mayo 2026","imp":64380,"cl":580,"gasto":701373,"leads":24,"cpl":29224,"cplStr":"$29,224","t":"crit"},{"m":"USADOS","c":"USADOS|OFERTAS EXCLUSIVAS 2026","imp":199413,"cl":1779,"gasto":727861,"leads":11,"cpl":66169,"cplStr":"$66,169","t":"crit"},{"m":"OMODA - JAECOO","c":"Campaña Whatsapp| - Omoda C5 - 2026","imp":67957,"cl":1311,"gasto":246911,"leads":2,"cpl":123456,"cplStr":"$123,456","t":"crit"},{"m":"PEUGEOT","c":"Whatsapp | Peugeot","imp":114306,"cl":1027,"gasto":234782,"leads":1,"cpl":234782,"cplStr":"$234,782","t":"crit"},{"m":"FORD","c":"Whatsapp_FORD | Mayo","imp":96201,"cl":1615,"gasto":325762,"leads":1,"cpl":325762,"cplStr":"$325,762","t":"crit"},{"m":"KIA","c":"V\u0026D/KiaMorning - Sonet 2026","imp":96580,"cl":15878,"gasto":933693,"leads":1,"cpl":933693,"cplStr":"$933,693","t":"crit"},{"m":"FORD","c":"Trafico_Ford","imp":1524450,"cl":16819,"gasto":270896,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"HONDA","c":"Campaña_Whatsapp","imp":40011,"cl":664,"gasto":168967,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"KIA","c":"Kia_Whatsapp  2026","imp":178713,"cl":3392,"gasto":329115,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"USADOS","c":"USADOS | Leads | 2026 - FORMULARIO","imp":2729,"cl":54,"gasto":23022,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"PEUGEOT","c":"Peugeot | Mantención - interes","imp":233,"cl":2,"gasto":806,"leads":0,"cpl":0,"cplStr":"-","t":"na"},{"m":"USADOS","c":"USADOS | Leads | 2026 - WHATSAPP","imp":59575,"cl":1001,"gasto":226756,"leads":0,"cpl":0,"cplStr":"-","t":"na"}]],
-  alertas:[{"plat":"Meta","c":"Kia_Whatsapp  2026","clp":329115},{"plat":"Meta","c":"USADOS | Leads | 2026 - WHATSAPP","clp":226756},{"plat":"Meta","c":"Trafico_Ford","clp":270896},{"plat":"Meta","c":"Campaña_Whatsapp","clp":168967}]
-};
+<!-- KPIs -->
+<div class="summary-grid">
+  <div class="kpi-card google">
+    <div class="kpi-label">Google Ads — Gasto</div>
+    <div class="kpi-value">$6.14M</div>
+    <div class="kpi-sub">CLP · 1–16 junio</div>
+  </div>
+  <div class="kpi-card google">
+    <div class="kpi-label">Google Ads — Conversiones</div>
+    <div class="kpi-value">825</div>
+    <div class="kpi-sub">CPL promedio $7,447</div>
+  </div>
+  <div class="kpi-card meta">
+    <div class="kpi-label">Meta Ads — Gasto</div>
+    <div class="kpi-value">$25.78M</div>
+    <div class="kpi-sub">CLP · 1–16 junio</div>
+  </div>
+  <div class="kpi-card meta">
+    <div class="kpi-label">Meta Ads — Leads</div>
+    <div class="kpi-value">2,259</div>
+    <div class="kpi-sub">CPL promedio $11,411</div>
+  </div>
+  <div class="kpi-card total" style="grid-column:span 2;">
+    <div class="kpi-label">Inversión Total Combinada</div>
+    <div class="kpi-value">$31,919,552 CLP</div>
+    <div class="kpi-sub">Google + Meta · 1–16 junio 2026</div>
+  </div>
+  <div class="kpi-card total" style="grid-column:span 2;">
+    <div class="kpi-label">Total Conversiones + Leads</div>
+    <div class="kpi-value">3,084</div>
+    <div class="kpi-sub">CPL global combinado $10,350</div>
+  </div>
+</div>
 
-const fmt = n => '\$' + Math.round(n).toLocaleString('es-CL');
-const fmtN = n => Math.round(n).toLocaleString('es-CL');
-const badgeTxt = {exc:'âœ… Excepcional',good:'âœ… Bueno',ok:'âš ï¸ Moderado',bad:'ðŸ”´ Caro',crit:'ðŸš¨ CrÃ­tico',na:'â€” Sin leads'};
-const badgeCls = {exc:'b-exc',good:'b-good',ok:'b-ok',bad:'b-bad',crit:'b-crit',na:'b-na'};
-const typeCls  = {exc:'t-exc',good:'t-good',ok:'t-ok',bad:'t-bad',crit:'t-crit',na:'t-na'};
+<div class="nota">
+  <strong>Nota metodológica:</strong> Las conversiones de Google Ads tienen latencia de atribución de 1–5 días; los últimos días del período pueden subestimar conversiones reales. Tres cuentas de Google Ads (Peugeot, Honda, Omoda secundarias) no respondieron a la consulta — sus datos no están incluidos en los totales de Google. Todas las cifras en CLP.
+</div>
 
-// KPIs
-const kg = document.getElementById('kpiGrid');
-kg.innerHTML =
-  kpi('goog','Google Ads',fmt(D.spG),fmtN(D.convG)+' conv &nbsp;Â·&nbsp; CPL '+fmt(D.cplG))+
-  kpi('meta','Meta Ads',fmt(D.spM),fmtN(D.leadsM)+' leads &nbsp;Â·&nbsp; CPL '+fmt(D.cplM))+
-  kpi('tot kpi-wide','Total Combinado',fmt(D.spT),'<b>'+fmtN(D.totConv)+'</b> resultados &nbsp;Â·&nbsp; CPL global '+fmt(D.cplT));
+<!-- GOOGLE ADS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon google">G</div>
+    <div class="section-title">Google Ads</div>
+    <div class="section-totals">$6,140,870 CLP &nbsp;·&nbsp; 825 conv &nbsp;·&nbsp; CPL $7,447</div>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Marca</th><th>Campaña</th><th class="num">Clics</th><th class="num">Costo CLP</th><th class="num">Conv.</th><th class="num">CPL CLP</th><th>Evaluación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="marca">KIA</td><td class="camp">KIA_Leads_PMAX_2026</td><td class="num">—</td><td class="num">94,502</td><td class="num">207.6</td><td class="num cpl-exc">455</td><td><span class="badge badge-green">✅ Excepcional</span></td></tr>
+      <tr><td class="marca">KIA</td><td class="camp">Kia_Leads_Adwords_2026</td><td class="num">—</td><td class="num">447,103</td><td class="num">129.6</td><td class="num cpl-exc">3,449</td><td><span class="badge badge-green">✅ Excepcional</span></td></tr>
+      <tr><td class="marca">RAM</td><td class="camp">Ram 700 | Performance Max Leads</td><td class="num">—</td><td class="num">403,297</td><td class="num">77</td><td class="num cpl-exc">5,238</td><td><span class="badge badge-green">✅ Muy bueno</span></td></tr>
+      <tr><td class="marca">FIAT</td><td class="camp">Search_Fiat_2026</td><td class="num">—</td><td class="num">322,197</td><td class="num">38</td><td class="num cpl-good">8,479</td><td><span class="badge badge-green">✅ Bueno</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | PMAX | Leads | RM + V Región</td><td class="num">—</td><td class="num">1,642,846</td><td class="num">183.2</td><td class="num cpl-good">8,966</td><td><span class="badge badge-green">✅ Bueno</span></td></tr>
+      <tr><td class="marca">USADOS</td><td class="camp">Usados_Pmax_2026</td><td class="num">—</td><td class="num">425,308</td><td class="num">33</td><td class="num cpl-ok">12,888</td><td><span class="badge badge-yellow">⚠️ Moderado</span></td></tr>
+      <tr><td class="marca">USADOS</td><td class="camp">Usados_Adwords_Leads_2026</td><td class="num">—</td><td class="num">451,747</td><td class="num">30</td><td class="num cpl-ok">15,058</td><td><span class="badge badge-yellow">⚠️ Moderado</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | Adwords | Leads | RM-VR 2026</td><td class="num">—</td><td class="num">1,062,772</td><td class="num">60.2</td><td class="num cpl-bad">17,645</td><td><span class="badge badge-orange">🔴 Caro</span></td></tr>
+      <tr><td class="marca">JEEP</td><td class="camp">Search_Jeep_2026</td><td class="num">—</td><td class="num">1,291,098</td><td class="num">66</td><td class="num cpl-bad">19,562</td><td><span class="badge badge-orange">🔴 Caro</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="nota-warn">
+    &#9888; <strong>Datos parciales:</strong> Las cuentas de Peugeot, Honda y Omoda (3 de 7 cuentas) retornaron error en la consulta. Sus campañas no aparecen en esta tabla ni en los totales de Google Ads.
+  </div>
+  <div class="brand-grid">
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">KIA</span>
+        <span class="brand-pill badge-green" style="background:#dcfce7;color:#15803d;">★ Mejor del portfolio</span>
+      </div>
+      <ul>
+        <li>PMAX: <strong class="hl-good">207.6 conv a CPL $455</strong> — el dato más destacado de toda la cuenta. Desde $94K de inversión.</li>
+        <li>Adwords: 129.6 conv a $3,449 CPL — también excepcional. Total KIA: 337 conv.</li>
+        <li><strong>Acción:</strong> Escalar el PMAX — $455 CPL es 15× más barato que el promedio del mercado automotriz.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">FORD</span>
+        <span class="brand-pill badge-yellow" style="background:#fef9c3;color:#92400e;">Mayor gasto</span>
+      </div>
+      <ul>
+        <li>PMAX: $1.64M, 183 conv, <strong>$8,966 CPL</strong> — bueno para el volumen manejado.</li>
+        <li>Adwords: $1.06M, 60 conv, <strong class="hl-bad">$17,645 CPL</strong> — 2× más caro que PMAX. Evaluar reducción.</li>
+        <li>Total Ford Google: $2.7M CLP, 243 conv, CPL $11,117.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">JEEP</span>
+        <span class="brand-pill badge-orange" style="background:#ffedd5;color:#9a3412;">Revisar</span>
+      </div>
+      <ul>
+        <li>Search: 66 conv a <strong class="hl-bad">$19,562 CPL</strong> con $1.29M de inversión.</li>
+        <li>En junio 1–8 era $16,415 CPL. El CPL subió 19% en la segunda semana.</li>
+        <li><strong>Acción:</strong> Revisar pujas y calidad de keywords. Comparar con JEEP Meta ($6,389 CPL) — el canal Search está muy por encima.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">USADOS</span>
+        <span class="brand-pill badge-yellow" style="background:#fef9c3;color:#92400e;">Moderado</span>
+      </div>
+      <ul>
+        <li>PMAX: 33 conv a $12,888 CPL — aceptable para el segmento usados.</li>
+        <li>Adwords: 30 conv a $15,058 CPL — rendimiento similar. Evaluar consolidar en un solo canal.</li>
+        <li>¿Los "leads" de usados tienen la misma calidad que los de nuevos?</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-function kpi(cls,lbl,val,sub){
-  return '<div class="kpi '+cls+'"><div class="kpi-lbl">'+lbl+'</div><div class="kpi-val">'+val+'</div><div class="kpi-sub">'+sub+'</div></div>';
-}
+<div class="divider"></div>
 
-// SecciÃ³n Google Ads
-const sg = document.getElementById('secGoogle');
-sg.innerHTML = '<div class="sec-hdr"><div class="sec-icon g">G</div><div class="sec-title">Google Ads</div><div class="sec-total">'+fmtN(D.convG)+' conv &nbsp;Â·&nbsp; CPL '+fmt(D.cplG)+'</div></div><div class="camp-list" id="listG"></div><div class="ver-mas" id="moreG" onclick="showMore(\'listG\',\'moreG\')">Ver todas las campaÃ±as â–¾</div>';
-renderList('listG', D.google, 'google', 5);
+<!-- META ADS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon meta">f</div>
+    <div class="section-title">Meta Ads</div>
+    <div class="section-totals">$25,778,682 CLP &nbsp;·&nbsp; 2,259 leads &nbsp;·&nbsp; CPL $11,411</div>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Marca</th><th>Campaña</th><th class="num">Leads</th><th class="num">Gasto CLP</th><th class="num">CPL CLP</th><th>Evaluación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="marca">PEUGEOT</td><td class="camp">V&amp;D / PEUGEOT 208 — Leads</td><td class="num">159</td><td class="num">720,333</td><td class="num cpl-exc">4,530</td><td><span class="badge badge-green">✅ Excepcional</span></td></tr>
+      <tr><td class="marca">FIAT · RAM</td><td class="camp">V&amp;D / RAMPAGE + RAM700 — Leads</td><td class="num">336</td><td class="num">1,741,962</td><td class="num cpl-exc">5,184</td><td><span class="badge badge-green">✅ Excepcional</span></td></tr>
+      <tr><td class="marca">PEUGEOT</td><td class="camp">Peugeot | Mantención</td><td class="num">38</td><td class="num">207,381</td><td class="num cpl-exc">5,457</td><td><span class="badge badge-green">✅ Excepcional</span></td></tr>
+      <tr><td class="marca">JEEP</td><td class="camp">V&amp;D / JEEP Avenger — Compass — Leads</td><td class="num">288</td><td class="num">1,839,932</td><td class="num cpl-exc">6,389</td><td><span class="badge badge-green">✅ Excelente</span></td></tr>
+      <tr><td class="marca">KIA</td><td class="camp">Kia Morning | FORMULARIO | Mayo</td><td class="num">218</td><td class="num">1,423,908</td><td class="num cpl-exc">6,532</td><td><span class="badge badge-green">✅ Excelente</span></td></tr>
+      <tr><td class="marca">FIAT</td><td class="camp">V&amp;D | PULSE — FASTBACK — Leads</td><td class="num">179</td><td class="num">1,177,334</td><td class="num cpl-exc">6,577</td><td><span class="badge badge-green">✅ Excelente</span></td></tr>
+      <tr><td class="marca">HONDA</td><td class="camp">Honda | WRV — CRV | Leads</td><td class="num">159</td><td class="num">1,057,556</td><td class="num cpl-exc">6,651</td><td><span class="badge badge-green">✅ Excelente</span></td></tr>
+      <tr><td class="marca">HONDA</td><td class="camp">Honda | Pilot — HRV</td><td class="num">89</td><td class="num">607,016</td><td class="num cpl-good">6,820</td><td><span class="badge badge-green">✅ Bueno</span></td></tr>
+      <tr><td class="marca">PEUGEOT</td><td class="camp">5008 — 3008 — Partner | Leads</td><td class="num">102</td><td class="num">845,152</td><td class="num cpl-good">8,286</td><td><span class="badge badge-green">✅ Bueno</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Transit Custom | Campaña</td><td class="num">52</td><td class="num">506,694</td><td class="num cpl-ok">9,744</td><td><span class="badge badge-yellow">⚠️ Moderado</span></td></tr>
+      <tr><td class="marca">OMODA</td><td class="camp">Omoda | C5 — E5 | Leads</td><td class="num">119</td><td class="num">1,226,143</td><td class="num cpl-ok">10,304</td><td><span class="badge badge-yellow">⚠️ Moderado</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | Modelos | Leads | V Región</td><td class="num">73</td><td class="num">1,263,545</td><td class="num cpl-bad">17,309</td><td><span class="badge badge-orange">🔴 Caro</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | Modelos | Leads | 2026</td><td class="num">196</td><td class="num">3,739,915</td><td class="num cpl-bad">19,081</td><td><span class="badge badge-orange">🔴 Caro</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">V&amp;D / RM Ford Territory</td><td class="num">33</td><td class="num">645,470</td><td class="num cpl-bad">19,560</td><td><span class="badge badge-orange">🔴 Caro</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | Bronco — Explorer | VR</td><td class="num">68</td><td class="num">1,705,735</td><td class="num cpl-crit">25,084</td><td><span class="badge badge-red">🚨 Crítico</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Ford | Bronco — Explorer — Maverick</td><td class="num">99</td><td class="num">2,587,057</td><td class="num cpl-crit">26,132</td><td><span class="badge badge-red">🚨 Crítico</span></td></tr>
+      <tr><td class="marca">V&amp;D</td><td class="camp">Mantencion Bellavista</td><td class="num">11</td><td class="num">292,593</td><td class="num cpl-crit">26,599</td><td><span class="badge badge-red">🚨 Crítico</span></td></tr>
+      <tr><td class="marca">OMODA</td><td class="camp">JAECOO 7 SHS | Mayo 2026</td><td class="num">24</td><td class="num">701,373</td><td class="num cpl-crit">29,224</td><td><span class="badge badge-red">🚨 Crítico</span></td></tr>
+      <tr><td class="marca">USADOS</td><td class="camp">USADOS | OFERTAS EXCLUSIVAS</td><td class="num">11</td><td class="num">727,861</td><td class="num cpl-crit">66,169</td><td><span class="badge badge-red">🚨 Crítico</span></td></tr>
+      <tr><td class="marca">KIA</td><td class="camp">V&amp;D / KIA Morning — Sonet 2026</td><td class="num">1</td><td class="num">933,847</td><td class="num cpl-crit">933,847</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">OMODA</td><td class="camp">Whatsapp Omoda C5</td><td class="num">2</td><td class="num">246,943</td><td class="num cpl-crit">123,472</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">PEUGEOT</td><td class="camp">Whatsapp Peugeot</td><td class="num">1</td><td class="num">234,863</td><td class="num cpl-crit">234,863</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Whatsapp Ford</td><td class="num">1</td><td class="num">325,762</td><td class="num cpl-crit">325,762</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">FORD</td><td class="camp">Tráfico Ford</td><td class="num">0</td><td class="num">270,896</td><td class="num cpl-na">—</td><td><span class="badge badge-gray">Sin leads</span></td></tr>
+      <tr><td class="marca">HONDA</td><td class="camp">Campaña Whatsapp Honda</td><td class="num">0</td><td class="num">169,052</td><td class="num cpl-na">—</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">KIA</td><td class="camp">Kia Whatsapp 2026</td><td class="num">0</td><td class="num">329,265</td><td class="num cpl-na">—</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">USADOS</td><td class="camp">USADOS | Leads Formulario</td><td class="num">0</td><td class="num">23,022</td><td class="num cpl-na">—</td><td><span class="badge badge-gray">Sin leads</span></td></tr>
+      <tr><td class="marca">USADOS</td><td class="camp">USADOS | Leads Whatsapp</td><td class="num">0</td><td class="num">226,849</td><td class="num cpl-na">—</td><td><span class="badge badge-red">🚨 Suspender</span></td></tr>
+      <tr><td class="marca">PEUGEOT</td><td class="camp">Peugeot Mantención interes</td><td class="num">0</td><td class="num">806</td><td class="num cpl-na">—</td><td><span class="badge badge-gray">Mínimo</span></td></tr>
+    </tbody>
+  </table>
+  </div>
 
-// SecciÃ³n Meta Ads
-const sm = document.getElementById('secMeta');
-sm.innerHTML = '<div class="sec-hdr"><div class="sec-icon m">f</div><div class="sec-title">Meta Ads</div><div class="sec-total">'+fmtN(D.leadsM)+' leads &nbsp;Â·&nbsp; CPL '+fmt(D.cplM)+'</div></div><div class="camp-list" id="listM"></div><div class="ver-mas" id="moreM" onclick="showMore(\'listM\',\'moreM\')">Ver todas las campaÃ±as â–¾</div>';
-renderList('listM', D.meta, 'meta', 6);
+  <div class="brand-grid">
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">PEUGEOT</span>
+        <span class="brand-pill badge-green" style="background:#dcfce7;color:#15803d;">★ Líder Meta</span>
+      </div>
+      <ul>
+        <li>208 Leads: <strong class="hl-good">159 leads a $4,530 CPL</strong> — mejor de todo el portfolio Meta.</li>
+        <li>Mantención: 38 leads a $5,457 CPL — excelente para servicio.</li>
+        <li>5008/3008/Partner: 102 leads a $8,286 — sólido para gama alta.</li>
+        <li><strong class="hl-bad">Alerta:</strong> Whatsapp Peugeot: 1 lead / $234K CPL. Suspender de inmediato.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">RAM / FIAT / JEEP</span>
+        <span class="brand-pill badge-green" style="background:#dcfce7;color:#15803d;">Mayor volumen</span>
+      </div>
+      <ul>
+        <li>RAM/Rampage: <strong class="hl-good">336 leads a $5,184 CPL</strong> — mayor volumen a bajo costo.</li>
+        <li>JEEP Avenger/Compass: <strong class="hl-good">288 leads a $6,389 CPL</strong>.</li>
+        <li>FIAT Pulse/Fastback: 179 leads a $6,577 CPL.</li>
+        <li>Estas tres: <strong>803 leads = 35% del total Meta.</strong></li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">FORD</span>
+        <span class="brand-pill badge-red" style="background:#fee2e2;color:#991b1b;">Mayor problema</span>
+      </div>
+      <ul>
+        <li>Gasto total Ford Meta: <strong class="hl-bad">$10.5M CLP (41% del presupuesto Meta).</strong></li>
+        <li>522 leads combinados = CPL promedio <strong class="hl-bad">$20,115.</strong></li>
+        <li>Bronco/Explorer/Maverick: $26K CPL con $4.3M gastados.</li>
+        <li>Transit Custom el único razonable: 52 leads a $9,744 CPL.</li>
+        <li><strong>Acción urgente:</strong> Whatsapp Ford ($326K, 1 lead) — suspender.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">KIA</span>
+        <span class="brand-pill badge-yellow" style="background:#fef9c3;color:#92400e;">Mixto</span>
+      </div>
+      <ul>
+        <li>Morning formulario: <strong class="hl-good">218 leads a $6,532 CPL</strong> — bien.</li>
+        <li><strong class="hl-bad">V&amp;D Morning/Sonet:</strong> 1 lead / $933,847 CPL. Suspender y redirigir presupuesto al formulario.</li>
+        <li>KIA Whatsapp: 0 leads / $329K — suspender.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">HONDA</span>
+        <span class="brand-pill" style="background:#e0f2fe;color:#0369a1;">Sólido</span>
+      </div>
+      <ul>
+        <li>WRV/CRV: 159 leads a $6,651 &nbsp;·&nbsp; Pilot/HRV: 89 leads a $6,820 CPL.</li>
+        <li>248 leads totales, CPL consistente bajo $7K.</li>
+        <li><strong class="hl-bad">Whatsapp Honda:</strong> 0 leads / $169K — suspender.</li>
+      </ul>
+    </div>
+    <div class="brand-card">
+      <div class="brand-card-header">
+        <span class="brand-name">OMODA / JAECOO</span>
+        <span class="brand-pill badge-yellow" style="background:#fef9c3;color:#92400e;">Revisión</span>
+      </div>
+      <ul>
+        <li>Omoda C5/E5: 119 leads a $10,304 — aceptable para marca nueva.</li>
+        <li><strong class="hl-bad">JAECOO 7:</strong> 24 leads / $29,224 CPL — reformular creatividades.</li>
+        <li>Whatsapp Omoda: 2 leads / $123K CPL — suspender.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-// Alertas
-const sa = document.getElementById('secAlertas');
-if(D.alertas.length > 0){
-  let html = '<div class="sec-hdr"><div class="sec-icon a">!</div><div class="sec-title">Sin leads medibles</div></div>';
-  D.alertas.forEach(a=>{
-    html += '<div class="alert-card"><span class="alert-plat">'+a.plat+'</span><span class="alert-amt">'+fmt(a.clp)+' CLP</span><div class="alert-name">'+a.c+'</div></div>';
-  });
-  sa.innerHTML = html;
-}
+<div class="divider"></div>
 
-function renderList(id, data, tipo, limit) {
-  const el = document.getElementById(id);
-  const subset = data.slice(0, limit);
-  el.innerHTML = subset.map((c,i) => campCard(c, tipo, i)).join('');
-  if(data.length <= limit) document.getElementById(id.replace('list','more')).style.display='none';
-  el.dataset.all = JSON.stringify(data);
-  el.dataset.tipo = tipo;
-}
+<!-- ALERTAS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon alert">!</div>
+    <div class="section-title">Campañas Sin Resultado — Acción Urgente</div>
+    <div class="section-totals">$2.6M+ CLP quemados sin leads</div>
+  </div>
+  <div class="table-wrap">
+  <table class="alert-table">
+    <thead>
+      <tr><th>Plataforma</th><th>Campaña</th><th class="num">Gasto CLP</th><th>Acción</th></tr>
+    </thead>
+    <tbody>
+      <tr class="alert-row"><td>Meta</td><td>KIA V&amp;D / Morning — Sonet 2026</td><td class="num">933,847</td><td><span class="badge badge-red">🚨 Suspender — 1 lead / $934K CPL</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>Whatsapp Ford</td><td class="num">325,762</td><td><span class="badge badge-red">🚨 Suspender — 1 lead / $326K CPL</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>KIA Whatsapp 2026</td><td class="num">329,265</td><td><span class="badge badge-red">🚨 Suspender — 0 leads</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>USADOS | Leads Whatsapp</td><td class="num">226,849</td><td><span class="badge badge-red">🚨 Suspender — 0 leads</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>Whatsapp Omoda C5</td><td class="num">246,943</td><td><span class="badge badge-red">🚨 Suspender — 2 leads / $123K CPL</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>Whatsapp Peugeot</td><td class="num">234,863</td><td><span class="badge badge-red">🚨 Suspender — 1 lead / $235K CPL</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>Campaña Whatsapp Honda</td><td class="num">169,052</td><td><span class="badge badge-red">🚨 Suspender — 0 leads</span></td></tr>
+      <tr class="alert-row"><td>Meta</td><td>Tráfico Ford</td><td class="num">270,896</td><td><span class="badge badge-orange">🔴 Sin conversiones medidas</span></td></tr>
+      <tr class="alert-row"><td>Google</td><td>Jeep Search — CPL muy alto</td><td class="num">1,291,098</td><td><span class="badge badge-orange">🔴 $19,562 CPL — revisar pujas</span></td></tr>
+      <tr class="alert-row"><td>Google</td><td>Ford Adwords Leads RM-VR</td><td class="num">1,062,772</td><td><span class="badge badge-orange">🔴 $17,645 CPL — evaluar reducción</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
 
-function campCard(c, tipo, i) {
-  const isG = tipo === 'google';
-  const metricLabel = isG ? 'Conv' : 'Leads';
-  const metricVal   = isG ? fmtN(c.conv||0) : fmtN(c.leads||0);
-  const metricCost  = isG ? fmt(c.costo||0) : fmt(c.gasto||0);
-  const metricImp   = fmtN(c.imp||0);
-  const tcls = typeCls[c.t] || 't-na';
-  const bcls = badgeCls[c.t] || 'b-na';
-  const btxt = badgeTxt[c.t] || 'â€”';
-  return '<div class="camp-card '+tcls+'" onclick="toggle(\'det-'+tipo+'-'+i+'\')">' +
-    '<div class="camp-left">' +
-      '<div class="camp-marca">'+escH(c.m)+'</div>' +
-      '<div class="camp-nombre">'+escH(c.c)+'</div>' +
-      '<div class="camp-stats">'+metricLabel+': <b>'+metricVal+'</b> &nbsp;Â·&nbsp; Gasto: '+metricCost+'</div>' +
-    '</div>' +
-    '<div class="camp-right">' +
-      '<div class="camp-cpl">'+c.cplStr+'</div>' +
-      '<div class="camp-cpl-lbl">CLP/'+metricLabel.toLowerCase()+'</div>' +
-      '<span class="camp-badge '+bcls+'">'+btxt+'</span>' +
-    '</div>' +
-  '</div>' +
-  '<div class="camp-detail" id="det-'+tipo+'-'+i+'">' +
-    '<span>Impresiones<b>'+metricImp+'</b></span>' +
-    '<span>Clics<b>'+fmtN(c.cl||0)+'</b></span>' +
-    '<span>'+metricLabel+'<b>'+metricVal+'</b></span>' +
-    '<span>Gasto<b>'+metricCost+'</b></span>' +
-  '</div>';
-}
+<div class="divider"></div>
 
-function toggle(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.classList.toggle('open');
-}
+<!-- RECOMENDACIONES -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon reco">✓</div>
+    <div class="section-title">Recomendaciones Prioritarias</div>
+  </div>
+  <ol class="reco-list">
+    <li><div class="reco-text"><strong>Suspender las 7 campañas Whatsapp de Meta</strong> que acumulan $1.5M CLP sin resultados. Redistribuir a campañas de formulario con CPL &lt;$7K (RAM, FIAT, Peugeot 208, JEEP). <em>— Impacto estimado: +200 leads/mes sin aumentar presupuesto.</em></div></li>
+    <li><div class="reco-text"><strong>Pausar KIA V&amp;D Morning/Sonet (Meta):</strong> $933,847 para 1 lead. KIA Morning formulario genera 218 leads a $6,532 CPL. Mover todo el presupuesto KIA a esa campaña.</div></li>
+    <li><div class="reco-text"><strong>Escalar KIA PMAX Google:</strong> CPL $455 con 207 conv desde $94K — el mejor ratio de todo el portfolio. Duplicar o triplicar el presupuesto y medir en 14 días. Verificar calidad de leads primero.</div></li>
+    <li><div class="reco-text"><strong>Revisar JEEP Search Google ($19,562 CPL):</strong> En Meta el mismo JEEP está a $6,389 CPL. La brecha de 3× entre plataformas sugiere problema de pujas o keywords irrelevantes en Search. Reducir presupuesto Adwords JEEP un 30% y reasignar a JEEP Meta.</div></li>
+    <li><div class="reco-text"><strong>Revisar estrategia Ford en Meta:</strong> $10.5M gastados, CPL promedio $20K. Bronco/Explorer Premium puede tener CPL alto por el segmento, pero necesita validarse contra ventas reales. Proponer reducir 30% y medir impacto en unidades vendidas.</div></li>
+    <li><div class="reco-text"><strong>JAECOO 7 Meta ($29,224 CPL):</strong> Reformular creatividades y segmentación. Si en 7 días no mejora a &lt;$15K CPL, pausar y mover presupuesto a Omoda C5 ($10,304 CPL).</div></li>
+    <li><div class="reco-text"><strong>Investigar cuentas con error en Google Ads:</strong> Tres cuentas (Peugeot, Honda, Omoda) retornaron 400. Puede ser un problema de permisos del token renovado o de la MCC. Si estas cuentas tienen campañas activas, sus datos no están siendo monitoreados.</div></li>
+  </ol>
+</div>
 
-function showMore(listId, moreId) {
-  const el = document.getElementById(listId);
-  const data = JSON.parse(el.dataset.all);
-  const tipo = el.dataset.tipo;
-  el.innerHTML = data.map((c,i) => campCard(c, tipo, i)).join('');
-  document.getElementById(moreId).style.display = 'none';
-}
+<div class="report-footer">
+  <span>Marketing Digital — Valenzuela &amp; Delarze</span>
+  <span>Datos: 1–16 jun 2026 &nbsp;·&nbsp; Generado: 16 jun 2026</span>
+</div>
 
-function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-</script>
+</div>
 </body>
 </html>
